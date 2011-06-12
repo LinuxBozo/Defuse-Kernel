@@ -1,19 +1,26 @@
-	HOW TO BUILD KERNEL 2.6.32 FOR SGH-I997
+	HOW TO FORK AND BUILD
 
 1. Visit http://www.codesourcery.com/, download and install Sourcery G++ Lite 2009q3-68 toolchain for ARM EABI.
 
-2. In the top directory of the kernel source, edit CROSS_COMPILE in the makefile to point to your toolchain.
+2. Fork linux_sgh-i997-hacked and froyo-sgh-i997-initramfs-hacked
+	http://help.github.com/fork-a-repo/
 
-3. In arch/arm/configs/gtg465x_defconfig, edit CONFIG_INITRAMFS_SOURCE to point to your initramfs.
+4. Remove hidden directories (like .git) from your initramfs (froyo-sgh-i997-initramfs-hacked).
 
-4. Move into the top directory of the kernel source.
+5. In linux_sgh-i997-hacked/Makefile, edit CROSS_COMPILE to point to your toolchain.
 
-5. Execute 'make gtg465x_defconfig'.
+6. In linux_sgh-i997-hacked/arch/arm/configs/gtg465x_defconfig, edit CONFIG_INITRAMFS_SOURCE to point to your initramfs.
 
-6. Execute 'make' or 'make -j<n>' where '<n>' is the number of multiple jobs to be invoked simultaneously.
+7. Move into the top directory of the kernel source (linux_sgh-i997-hacked).
 
-7. If the kernel is built successfully, you will find the following file from the top directory:
-	arch/arm/boot/zImage
+8. Execute 'make gtg465x_defconfig'.
+
+9. Execute 'make' or 'make -j<n>' where '<n>' is the number of multiple jobs to be invoked simultaneously.
+
+10. If the kernel is built successfully, you will find the following file:
+	linux_sgh-i997-hacked/arch/arm/boot/zImage
+
+11. If you would like to use the drivers you compiled instead of those from the stock initramfs, search for .ko files in linux_sgh-i997-hacked, copy them to froyo-sgh-i997-initramfs-hacked/lib/modules, and then compile again.
 
 
 	Linux kernel release 2.6.xx <http://kernel.org/>
