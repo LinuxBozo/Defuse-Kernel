@@ -1,3 +1,21 @@
+	HOW TO BUILD KERNEL 2.6.32 FOR SGH-I997
+
+1. Visit http://www.codesourcery.com/, download and install Sourcery G++ Lite 2009q3-68 toolchain for ARM EABI.
+
+2. In the top directory of the kernel source, edit CROSS_COMPILE in the makefile to point to your toolchain.
+
+3. In arch/arm/configs/gtg465x_defconfig, edit CONFIG_INITRAMFS_SOURCE to point to your initramfs.
+
+4. Move into the top directory of the kernel source.
+
+5. Execute 'make gtg465x_defconfig'.
+
+6. Execute 'make' or 'make -j<n>' where '<n>' is the number of multiple jobs to be invoked simultaneously.
+
+7. If the kernel is built successfully, you will find the following file from the top directory:
+	arch/arm/boot/zImage
+
+
 	Linux kernel release 2.6.xx <http://kernel.org/>
 
 These are the release notes for Linux version 2.6.  Read them carefully,
