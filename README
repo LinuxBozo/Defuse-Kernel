@@ -5,7 +5,7 @@
 2. Fork linux_sgh-i997-hacked and froyo-sgh-i997-initramfs-hacked
 	http://help.github.com/fork-a-repo/
 
-4. Remove hidden directories (like .git) from your initramfs (froyo-sgh-i997-initramfs-hacked).
+4. Remove hidden directories and files (like .git and .gitignore (5 of these)) from your initramfs (froyo-sgh-i997-initramfs-hacked).
 
 5. In linux_sgh-i997-hacked/Makefile, edit CROSS_COMPILE to point to your toolchain.
 
@@ -20,7 +20,7 @@
 10. If the kernel is built successfully, you will find the following file:
 	linux_sgh-i997-hacked/arch/arm/boot/zImage
 
-11. If you would like to use the drivers you compiled instead of those from the stock initramfs, search for .ko files in linux_sgh-i997-hacked, copy them to froyo-sgh-i997-initramfs-hacked/lib/modules, and then compile again.
+11. If you would like to use the drivers you compiled instead of the included in my initramfs repo, search for .ko files in linux_sgh-i997-hacked, copy them to froyo-sgh-i997-initramfs-hacked/lib/modules, and then compile again.
 
 
 	Linux kernel release 2.6.xx <http://kernel.org/>
