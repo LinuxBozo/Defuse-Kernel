@@ -3,6 +3,8 @@
  * Copyright (c) 2010 Samsung Electronics Co., Ltd.
  *		http://www.samsung.com/
  *
+ * Copyright (C) 2010 Michael Richter (alias neldar)
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
@@ -2090,9 +2092,9 @@ static struct s3c_platform_camera s5ka3dfx = {
 
 /**
  * isx005_ldo_en()
- * camera¿¡ Àü¿øÀ» °ø±ÞÇÏ±â À§ÇÑ LDOµéÀ» ÄÒ´Ù.
+ * cameraï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ LDOï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½.
  *
- * @param     en             LDO enable ¿©ºÎ
+ * @param     en             LDO enable ï¿½ï¿½ï¿½ï¿½
  * @return    void
  * @remark    Function     Set_MAX8998_PM_OUTPUT_Voltage, Set_MAX8998_PM_REG, 
  *
@@ -2135,10 +2137,10 @@ static void isx005_ldo_en(bool en)
 }
 /**
  * isx005_cam_stdby()
- * camera¸¦ enable ÇÑ´Ù.
+ * cameraï¿½ï¿½ enable ï¿½Ñ´ï¿½.
  *
- * @param     en             enable ¿©ºÎ
- * @return    err              gpio Á¦¾î¿¡ ½ÇÆÐÇÑ °æ¿ì err¸¦ ¹ÝÈ¯ÇÑ´Ù.
+ * @param     en             enable ï¿½ï¿½ï¿½ï¿½
+ * @return    err              gpio ï¿½ï¿½ï¿½î¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ errï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
  * @remark    Function     gpio_request, gpio_direction_output, gpio_set_value, msleep, gpio_free
  *
  * Dec 07, 2009  initial revision
@@ -2180,10 +2182,10 @@ int isx005_cam_stdby(bool en)
 }
 /**
  * isx005_cam_nrst()
- * camera¸¦ reset ÇÑ´Ù.
+ * cameraï¿½ï¿½ reset ï¿½Ñ´ï¿½.
  *
- * @param     nrst             reset ¿©ºÎ
- * @return    err              gpio Á¦¾î¿¡ ½ÇÆÐÇÑ °æ¿ì err¸¦ ¹ÝÈ¯ÇÑ´Ù.
+ * @param     nrst             reset ï¿½ï¿½ï¿½ï¿½
+ * @return    err              gpio ï¿½ï¿½ï¿½î¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ errï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
  * @remark    Function     gpio_request, gpio_direction_output, gpio_set_value, msleep, gpio_free
  *
  * Dec 07, 2009  initial revision
@@ -2229,10 +2231,10 @@ static int isx005_cam_nrst(bool nrst)
 }
 /**
  * isx005_cam_nrst()
- * camera¸¦ »ç¿ë°¡´ÉÇÑ »óÅÂ·Î ¼³Á¤ÇÑ´Ù.
+ * cameraï¿½ï¿½ ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
  *
- * @param     en             enable ¿©ºÎ
- * @return    err              gpio Á¦¾î¿¡ ½ÇÆÐÇÑ °æ¿ì err¸¦ ¹ÝÈ¯ÇÑ´Ù.
+ * @param     en             enable ï¿½ï¿½ï¿½ï¿½
+ * @return    err              gpio ï¿½ï¿½ï¿½î¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ errï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
  * @remark    Function     isx005_setup_port, isx005_ldo_en, s3c_gpio_cfgpin,
  *                                   isx005_cam_stdby, isx005_cam_nrst
  *
@@ -3676,6 +3678,13 @@ static void smdkc110_power_off(void)
 	while (1) ;
 }
 
+/* <begin> added by mr */
+// not the best solution, but a working one.
+#ifdef CONFIG_KEYPAD_CYPRESS_TOUCH_USE_BLN
+extern bool BacklightNotification_ongoing;
+#endif
+/* <end> added by mr */
+
 void s3c_config_sleep_gpio_table(int array_size, unsigned int (*gpio_table)[3])
 {
 	u32 i, gpio;
@@ -3686,6 +3695,16 @@ void s3c_config_sleep_gpio_table(int array_size, unsigned int (*gpio_table)[3])
 		s3c_gpio_slp_cfgpin(gpio, gpio_table[i][1]);
 		s3c_gpio_slp_setpull_updown(gpio, gpio_table[i][2]);
 	}
+
+/* <begin> added by mr */
+#ifdef CONFIG_KEYPAD_CYPRESS_TOUCH_USE_BLN
+     if(BacklightNotification_ongoing)
+     {
+        s3c_gpio_slp_cfgpin(GPIO_PS_ALS_SDA_28V, S3C_GPIO_SLP_OUT1);
+        s3c_gpio_slp_setpull_updown(GPIO_PS_ALS_SDA_28V, S3C_GPIO_PULL_DOWN);
+     }
+#endif
+/* <end> added by mr */
 
 	if (gpio_get_value(GPIO_PS_ON))
 	{
