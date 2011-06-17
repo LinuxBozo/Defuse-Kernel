@@ -41,7 +41,11 @@ snd-soc-wm8990-objs := wm8990.o
 snd-soc-wm8993-objs := wm8993.o
 
 ifeq ($(CONFIG_S5PC110_DEMPSEY_BOARD),y)
+ifeq ($(CONFIG_SND_VOODOO),y)
+snd-soc-wm8994-objs := wm8994.o wm8994_dempsey.o wm8994_voodoo.o A1026_i2c_drv.o ttymisc.o audience.o
+else
 snd-soc-wm8994-objs := wm8994.o wm8994_dempsey.o A1026_i2c_drv.o ttymisc.o audience.o
+endif
 else
 ifeq ($(CONFIG_S5PC110_KEPLER_BOARD),y)
 snd-soc-wm8994-objs := wm8994.o wm8994_kepler.o A1026_i2c_drv.o ttymisc.o audience.o
@@ -66,6 +70,9 @@ snd-soc-wm-hubs-objs := wm_hubs.o
 # Amp
 snd-soc-max9877-objs := max9877.o
 
+ifeq ($(CONFIG_SND_VOODOO_MODULE),m)
+obj-$(CONFIG_SND_VOODOO_MODULE)  += voodoo-sound-tegrak-module/
+endif
 obj-$(CONFIG_SND_SOC_AC97_CODEC)	+= snd-soc-ac97.o
 obj-$(CONFIG_SND_SOC_AD1836)	+= snd-soc-ad1836.o
 obj-$(CONFIG_SND_SOC_AD1938)	+= snd-soc-ad1938.o
