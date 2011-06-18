@@ -1,0 +1,4 @@
+#!/bin/sh
+mkdir -p drivers/fsr && mkdir -p fs/rfs && touch drivers/fsr/Makefile && touch fs/rfs/Makefile
+make clean
+rm -rf drivers/fsr && rm -rf fs/rfs
