@@ -1,16 +1,6 @@
 #!/bin/sh
-make -j4
-cp -a  drivers/samsung/fm_si4709/Si4709_driver.ko ../initramfs/lib/modules
-cp -a  drivers/net/tun.ko ../initramfs/lib/modules
-cp -a  drivers/bluetooth/bthid/bthid.ko ../initramfs/lib/modules
-cp -a  drivers/onedram_svn/modemctl/modemctl.ko ../initramfs/lib/modules
-cp -a  drivers/net/wireless/bcm4330/dhd.ko ../initramfs/lib/modules
-cp -a  drivers/samsung/vibetonz/vibrator.ko ../initramfs/lib/modules
-cp -a  drivers/scsi/scsi_wait_scan.ko ../initramfs/lib/modules
-cp -a  drivers/onedram_svn/onedram/onedram.ko ../initramfs/lib/modules
-cp -a  net/netfilter/xt_TCPMSS.ko ../initramfs/lib/modules
-cp -a  drivers/onedram_svn/svnet/svnet.ko ../initramfs/lib/modules
-make -j4
+make defuse_defconfig
+make -j16 && cp -a $(find . -name *.ko -print) ../initramfs-gtg/lib/modules/ && make -j16
 # adb shell reboot download
 # sleep 5
 # heimdall flash --kernel arch/arm/boot/zImage
