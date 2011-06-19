@@ -1,26 +1,27 @@
 	HOW TO FORK AND BUILD
 
-1. Visit http://www.codesourcery.com/, download and install Sourcery G++ Lite 2009q3-68 toolchain for ARM EABI.
+1. Visit http://www.codesourcery.com/, download and install Sourcery G++ Lite 2011.03 toolchain for ARM EABI. and install via sudo to /opt/toolchains
 
-2. Fork linux_sgh-i997-hacked and froyo-sgh-i997-initramfs-hacked
+2. Fork Defuse-Kernel and froyo-initramfs-i997.
 	http://help.github.com/fork-a-repo/
 
-4. Remove hidden directories and files (like .git and .gitignore (5 of these)) from your initramfs (froyo-sgh-i997-initramfs-hacked).
+3. git clone your forked repositories into a working directory.
 
-5. In linux_sgh-i997-hacked/Makefile, edit CROSS_COMPILE to point to your toolchain.
+4. Once you have froyo-initramfs-i997 in your working directory, issue the following:
+   ln -sf froyo-initramfs-i997 initfamfs
 
-6. In linux_sgh-i997-hacked/arch/arm/configs/gtg465x_defconfig, edit CONFIG_INITRAMFS_SOURCE to point to your initramfs.
+5. Move into the top directory of the kernel source (Defuse-Kernel).
 
-7. Move into the top directory of the kernel source (linux_sgh-i997-hacked).
+6. If you didn't install the 2011.03 toolchain in /opt/toolchains, in Defuse-Kernel/Makefile, edit CROSS_COMPILE to point to your toolchain.
 
-8. Execute 'make gtg465x_defconfig'.
+7. Modify 'build-linux-i997' for 'make -j<n>' to a number your machine will handle
 
-9. Execute 'make' or 'make -j<n>' where '<n>' is the number of multiple jobs to be invoked simultaneously.
+8. Execute './build-linux-i997'.
 
-10. If the kernel is built successfully, you will find the following file:
-	linux_sgh-i997-hacked/arch/arm/boot/zImage
+9. If the kernel is built successfully, you will find the following file:
+	'arch/arm/boot/zImage'
 
-11. If you would like to use the drivers you compiled instead of the included in my initramfs repo, search for .ko files in linux_sgh-i997-hacked, copy them to froyo-sgh-i997-initramfs-hacked/lib/modules, and then compile again.
+10. If you like, you can modify 'build-linux-i997' to reboot your phone in download mode and flash your new kernel with heimdall as part of the build
 
 
 	Linux kernel release 2.6.xx <http://kernel.org/>
