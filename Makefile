@@ -342,15 +342,6 @@ LINUXINCLUDE    := -Iinclude \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-<<<<<<< HEAD
-KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
-		   -fno-strict-aliasing -fno-common \
-		   -Werror-implicit-function-declaration \
-		   -mcpu=cortex-a8 -mfpu=neon -mfloat-abi=softfp -fno-gcse \
-		   -fprefetch-loop-arrays -Wno-format-security \
-		   -fomit-frame-pointer -funroll-loops -ffast-math \
-		   -fno-delete-null-pointer-checks
-=======
 KBUILD_CFLAGS := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		 -fno-strict-aliasing -fno-common \
 		 -Werror-implicit-function-declaration \
@@ -358,7 +349,6 @@ KBUILD_CFLAGS := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		 -fprefetch-loop-arrays -Wno-format-security \
 		 -fomit-frame-pointer -funroll-loops -ffast-math \
 		 -fno-delete-null-pointer-checks
->>>>>>> upstream/master
 KBUILD_AFLAGS   := -D__ASSEMBLY__
 
 # Read KERNELRELEASE from include/config/kernel.release (if it exists)
