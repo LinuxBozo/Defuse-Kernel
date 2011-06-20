@@ -3955,6 +3955,13 @@ static void smdkc110_power_off(void)
 	while (1) ;
 }
 
+/* <begin> added by mr */
+// not the best solution, but a working one.
+#ifdef CONFIG_KEYPAD_CYPRESS_TOUCH_USE_BLN
+extern bool BacklightNotification_ongoing;
+#endif
+/* <end> added by mr */
+
 void s3c_config_sleep_gpio_table(int array_size, unsigned int (*gpio_table)[3])
 {
 	u32 i, gpio;
@@ -3965,6 +3972,17 @@ void s3c_config_sleep_gpio_table(int array_size, unsigned int (*gpio_table)[3])
 		s3c_gpio_slp_cfgpin(gpio, gpio_table[i][1]);
 		s3c_gpio_slp_setpull_updown(gpio, gpio_table[i][2]);
 	}
+
+/* <begin> added by mr */
+#ifdef CONFIG_KEYPAD_CYPRESS_TOUCH_USE_BLN
+     if(BacklightNotification_ongoing)
+     {
+        s3c_gpio_slp_cfgpin(GPIO_PS_ALS_SDA_28V, S3C_GPIO_SLP_OUT1);
+        s3c_gpio_slp_setpull_updown(GPIO_PS_ALS_SDA_28V, S3C_GPIO_PULL_DOWN);
+     }
+#endif
+/* <end> added by mr */
+
 
 	if (gpio_get_value(GPIO_PS_ON))
 	{

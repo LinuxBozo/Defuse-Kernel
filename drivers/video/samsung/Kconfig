@@ -130,14 +130,14 @@ config FB_S3C_MDNIE_TUNINGMODE_FOR_BACKLIGHT
 config VOODOO_MDNIE
 	bool "Voodoo mDNIe sharpness and color enhancements"
 	depends on FB_S3C_MDNIE
-	default y
+	default n
 	---help---
 		 This enables Voodoo mDNIe tweaks
 
 config VOODOO_MDNIE_VIDEOS_ALT_PRESETS
 	bool "Replace Warm & Cold Video presets by Boost and Soft"
 	depends on VOODOO_MDNIE
-	default y
+	default n
 	---help---
 		This enables Voodoo mDNIe useful alternative presets used by Samsung video player
 
