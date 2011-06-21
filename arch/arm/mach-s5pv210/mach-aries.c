@@ -4754,7 +4754,7 @@ void cg29xx_rts_gpio_control(int flag)
 }
 EXPORT_SYMBOL(cg29xx_rts_gpio_control);
 int cg29xx_cts_gpio_level(void)
-{F
+{
 	return s3c_gpio_getpin(GPIO_GPS_CTS);
 }
 EXPORT_SYMBOL(cg29xx_cts_gpio_level);
