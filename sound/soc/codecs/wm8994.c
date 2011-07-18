@@ -55,15 +55,15 @@
 #else
 #include "HAC.h"
 #endif
-#ifdef CONFIG_SND_VOODOO
-#include "wm8994_voodoo.h"
-#endif
-
 #define WM8994_VERSION "0.1"
 #define SUBJECT "wm8994.c"
 
 #if defined(CONFIG_VIDEO_TV20) && defined(CONFIG_SND_ARIES_WM8994_MASTER) 
 #define HDMI_USE_AUDIO
+#endif
+
+#ifdef CONFIG_SND_VOODOO
+#include "wm8994_voodoo.h"
 #endif
 
 /* WM8994 AUDIO POWER CONTROL */
@@ -243,15 +243,14 @@ int wm8994_write(struct snd_soc_codec *codec, unsigned int reg, unsigned int val
 	int ret;
 	//BUG_ON(reg > WM8993_MAX_REGISTER);
 
+#ifdef CONFIG_SND_VOODOO
+	value = voodoo_hook_wm8994_write(codec, reg, value);
+#endif
+
 	/* data is
 	 *   D15..D9 WM8993 register offset
 	 *   D8...D0 register data
 	 */
-
-#ifdef CONFIG_SND_VOODOO
-        value = voodoo_hook_wm8994_write(codec, reg, value);
-#endif
-
 	data[0] = (reg & 0xff00 ) >> 8;
 	data[1] = reg & 0x00ff;
 	data[2] = value >> 8;
@@ -2180,10 +2179,10 @@ static int wm8994_i2c_probe(struct i2c_client *i2c,
 	if (ret < 0)
 		dev_err(&i2c->dev, "failed to initialize WM8994\n");
 
-	#ifdef CONFIG_SND_VOODOO
-        voodoo_hook_wm8994_pcm_probe(codec);
-    #endif	
-		
+#ifdef CONFIG_SND_VOODOO
+	voodoo_hook_wm8994_pcm_probe(codec);
+#endif
+
 	return ret;
 }
 

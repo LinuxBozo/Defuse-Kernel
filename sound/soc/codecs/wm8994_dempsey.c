@@ -19,14 +19,14 @@
 #include <mach/regs-clock.h> 
 #include <mach/gpio.h> 
 #include "wm8994.h"
-#ifdef CONFIG_SND_VOODOO
-#include "wm8994_voodoo.h"
-#endif
 
 #include "A1026_regs_dempsey.h" //hdlnc_ldj_0415_A1026
 #include "A1026_dev.h"  //hdlnc_ldj_0415_A1026
 #include "A1026_i2c_drv.h"  //hdlnc_ldj_0415_A1026
 
+#ifdef CONFIG_SND_VOODOO
+#include "wm8994_voodoo.h"
+#endif
 
 
 //------------------------------------------------
@@ -1430,9 +1430,9 @@ void wm8994_record_main_mic(struct snd_soc_codec *codec)
 
 	wm8994_write( codec, WM8994_GPIO_1, 0xA101 );   // GPIO1 is Input Enable
 
-	#ifdef CONFIG_SND_VOODOO_RECORD_PRESETS
-        voodoo_hook_record_main_mic();
-    #endif
+#ifdef CONFIG_SND_VOODOO_RECORD_PRESETS
+	voodoo_hook_record_main_mic();
+#endif
 	
 	if(wm8994->recognition_active == REC_ON)	// for avoiding pop noise when start google voice search
 		msleep(60);
@@ -5311,7 +5311,7 @@ void wm8994_set_fmradio_common(struct snd_soc_codec *codec, int onoff)
 			val &= ~(WM8994_IN2R_TO_MIXINR_MASK);
 			wm8994_write(codec, WM8994_INPUT_MIXER_4, val);	
 		}
-	}
+	}		
 }
 
 void wm8994_set_fmradio_headset(struct snd_soc_codec *codec)
